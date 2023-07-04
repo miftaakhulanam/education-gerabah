@@ -13,11 +13,15 @@ $query = query ("SELECT * FROM pendaftaran_pelatihan WHERE id_pendaftaran = '$id
 if(isset($_POST['simpan'])){
     $nama = htmlspecialchars($_POST['nama']);
     $email = htmlspecialchars($_POST['email']);
+    $kategori = htmlspecialchars($_POST['kategori']);
+    $tanggal = htmlspecialchars($_POST['tanggal']);
     $pesan = htmlspecialchars($_POST['pesan']);
 
     $update = mysqli_query($koneksi,"UPDATE pendaftaran_pelatihan SET 
                             nama = '$nama',
                             email = '$email',
+                            kategori = '$kategori',
+                            tanggal = '$tanggal',
                             pesan = '$pesan' WHERE id_pendaftaran = '$id_pendaftaran'");
 
     if($update){
@@ -66,18 +70,34 @@ if(isset($_POST['simpan'])){
             <form action="" class="mt-4 " method="POST">
                 <div class="w-[80%] mx-auto">
                     <label for="nama" class="text-lg ">Nama</label>
-                    <input type="text" name="nama" class="w-full mt-2 h-9 rounded-md p-2" value="<?= $query['nama']; ?>">
+                    <input type="text" name="nama" class="w-full mt-2 h-9 rounded-md p-2" required value="<?= $query['nama']; ?>">
                 </div>
                 <div class="w-[80%] mx-auto mt-4">
                     <label for="email" class="text-lg ">Email</label>
-                    <input type="email" name="email" class="w-full mt-2 h-9 rounded-md p-2" value="<?= $query['email']; ?>">
+                    <input type="email" name="email" class="w-full mt-2 h-9 rounded-md p-2" required value="<?= $query['email']; ?>">
+                </div>
+                <div class="w-[80%] mx-auto mt-4">
+                    <label for="kategori" class="text-lg ">Kategori</label>
+                    <select
+                        id="kategori" name="kategori"
+                        class="shadow-sm bg-gray-50 border border-gray-300 rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 dark:shadow-sm-light"
+                        required>
+                        <option class="text-gray-900 text-sm" value="Ekonomi">Ekonomi</option>
+                        <option class="text-gray-900 text-sm" value="Menengah">Menengah</option>
+                        <option class="text-gray-900 text-sm" value="Premium">Premium</option>
+                    </select>
+                </div>
+                <div class="w-[80%] mx-auto mt-4">
+                    <label for="tanggal" class="text-lg ">Tanggal</label>
+                    <input type="date" name="tanggal" class="w-full mt-2 h-9 rounded-md p-2" required value="<?= $query['tanggal']; ?>">
                 </div>
                 <div class="w-[80%] mx-auto mt-4">
                     <label for="pesan" class="text-lg ">Pesan</label>
-                    <input type="text" name="pesan" class="w-full mt-2 h-9 rounded-md p-2" value="<?= $query['pesan']; ?>">
+                    <input type="text" name="pesan" class="w-full mt-2 h-9 rounded-md p-2" required value="<?= $query['pesan']; ?>">
                 </div>
                 <div class="w-[80%] mx-auto mt-4">
                     <button name="simpan" class="py-2 px-4 bg-orange-500 hover:bg-orange-600 text-white rounded-md">Simpan</button>
+                    <a href="index.php" class="py-2 px-4 bg-red-600 hover:bg-red-700 text-white rounded-md mb-11 ml-2">Batal</a>
                 </div>
             </form>
 

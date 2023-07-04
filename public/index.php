@@ -11,9 +11,11 @@ include "../koneksi.php";
 if(isset($_POST['kirim'])){
     $nama = htmlspecialchars($_POST['nama']);
     $email = htmlspecialchars($_POST['email']);
+    $kategori = htmlspecialchars($_POST['kategori']);
+    $tanggal = htmlspecialchars($_POST['tanggal']);
     $pesan = htmlspecialchars($_POST['pesan']);
 
-    $insert = mysqli_query($koneksi,"INSERT INTO pendaftaran_pelatihan(nama,email,pesan) VALUES('$nama','$email','$pesan')");
+    $insert = mysqli_query($koneksi,"INSERT INTO pendaftaran_pelatihan(nama,email,kategori,tanggal,pesan) VALUES('$nama','$email','$kategori','$tanggal','$pesan')");
 
     if($insert){
         echo"<script> alert('Pesan anda berhasil terkirim');
@@ -245,6 +247,26 @@ if(isset($_POST['kirim'])){
               required
             />
           </div>
+          <div>
+            <label for="kategori" class="block mb-2">Kategori</label>
+            <select
+              id="kategori" name="kategori"
+              class="shadow-sm bg-gray-50 border border-gray-300 text-sm text-gray-900 rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 dark:shadow-sm-light"
+              required>
+              <option class="text-sm text-gray-500 dark:text-gray-300" value="Ekonomi">Ekonomi</option>
+              <option class="text-sm text-gray-500 dark:text-gray-300" value="Menengah">Menengah</option>
+              <option class="text-sm text-gray-500 dark:text-gray-300" value="Premium">Premium</option>
+            </select>
+          </div>
+          <div>
+            <label for="tanggal" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Tanggal pelaksanaan</label>
+            <input
+              type="date"
+              id="tanggal" name="tanggal"
+              class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 dark:shadow-sm-light"
+              required
+            />
+          </div>
           <div class="sm:col-span-2">
             <label for="message" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Pesan</label>
             <textarea
@@ -252,6 +274,7 @@ if(isset($_POST['kirim'])){
               rows="6" name="pesan"
               class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg shadow-sm border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
               placeholder="Masukkan pesan"
+              required
             ></textarea>
           </div>
           <button

@@ -53,6 +53,8 @@ $query = query("SELECT * FROM pendaftaran_pelatihan");
                         <th class="p-3 text-sm border-2 border-slate-200">No</th>
                         <th class="p-3 text-sm border-2 border-slate-200">Nama</th>
                         <th class="p-3 text-sm border-2 border-slate-200">Email</th>
+                        <th class="p-3 text-sm border-2 border-slate-200">Kategori</th>
+                        <th class="p-3 text-sm border-2 border-slate-200">Tanggal</th>
                         <th class="p-3 text-sm border-2 border-slate-200">Pesan</th>
                     </tr>
                     <?php $no = 0; foreach($query as $data) : $no++;?>
@@ -60,6 +62,8 @@ $query = query("SELECT * FROM pendaftaran_pelatihan");
                         <td class="p-3 text-sm border-2 border-slate-200"><?= $no ?></td>
                         <td class="p-3 text-sm border-2 border-slate-200"><?= $data['nama']; ?></td>
                         <td class="p-3 text-sm border-2 border-slate-200"><?= $data['email']; ?></td>
+                        <td class="p-3 text-sm border-2 border-slate-200"><?= $data['kategori']; ?></td>
+                        <td class="p-3 text-sm border-2 border-slate-200"><?= $data['tanggal']; ?></td>
                         <td class="p-3 text-sm text-left border-2 border-slate-200"><?= $data['pesan']; ?></td>
                     </tr>
                     <?php endforeach; ?>

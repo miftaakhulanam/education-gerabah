@@ -1234,6 +1234,10 @@ input:checked + .toggle-bg {
   margin-left: 16rem;
 }
 
+.mr-1 {
+  margin-right: 0.25rem;
+}
+
 .mr-3 {
   margin-right: 0.75rem;
 }
@@ -1256,14 +1260,6 @@ input:checked + .toggle-bg {
 
 .mt-6 {
   margin-top: 1.5rem;
-}
-
-.mr-2 {
-  margin-right: 0.5rem;
-}
-
-.mr-1 {
-  margin-right: 0.25rem;
 }
 
 .box-border {
@@ -1429,26 +1425,13 @@ input:checked + .toggle-bg {
   width: 80%;
 }
 
-.w-full {
-  width: 100%;
-}
-
-.w-auto {
-  width: auto;
-}
-
 .w-fit {
   width: -moz-fit-content;
   width: fit-content;
 }
 
-.w-max {
-  width: -moz-max-content;
-  width: max-content;
-}
-
-.w-screen {
-  width: 100vw;
+.w-full {
+  width: 100%;
 }
 
 .max-w-screen-md {

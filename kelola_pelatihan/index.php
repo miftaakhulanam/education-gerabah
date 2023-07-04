@@ -52,6 +52,8 @@ $query = query("SELECT * FROM pendaftaran_pelatihan");
                         <th class="p-3 text-sm">No</th>
                         <th class="p-3 text-sm">Nama</th>
                         <th class="p-3 text-sm">Email</th>
+                        <th class="p-3 text-sm">Kategori</th>
+                        <th class="p-3 text-sm">Tanggal</th>
                         <th class="p-3 text-sm">Pesan</th>
                         <th class="w-32 p-3 text-sm">Aksi</th>
                     </tr>
@@ -60,6 +62,8 @@ $query = query("SELECT * FROM pendaftaran_pelatihan");
                         <td class="p-3 text-sm"><?= $no ?></td>
                         <td class="p-3 text-sm"><?= $data['nama']; ?></td>
                         <td class="p-3 text-sm"><?= $data['email']; ?></td>
+                        <td class="p-3 text-sm"><?= $data['kategori']; ?></td>
+                        <td class="p-3 text-sm"><?= $data['tanggal']; ?></td>
                         <td class="p-3 text-sm text-left"><?= $data['pesan']; ?></td>
                         <td class="p-3 flex gap-x-2">
                             <a href="edit.php?id_pendaftaran=<?= $data['id_pendaftaran'];?>" class="inline-block py-2 px-4 bg-green-600 hover:bg-green-700 text-white rounded-md text-sm">

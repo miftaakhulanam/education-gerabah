@@ -21,7 +21,7 @@ if(isset($_POST['simpan'])){
     $update = mysqli_query($koneksi,"UPDATE pengguna SET 
                             nama = '$nama',
                             username = '$username',
-                            password = '".MD5($password)."',
+                            password = '$password',
                             telp = '$telp',
                             email = '$email',
                             address = '$address' WHERE pengguna_id = '$pengguna_id'");
@@ -72,30 +72,31 @@ if(isset($_POST['simpan'])){
             <form action="" class="mt-4 " method="POST">
                 <div class="w-[80%] mx-auto">
                     <label for="nama" class="text-lg ">Nama</label>
-                    <input type="text" name="nama" class="w-full mt-2 h-9 rounded-md p-2" value="<?= $query['nama']; ?>">
+                    <input type="text" name="nama" class="w-full mt-2 h-9 rounded-md p-2" required value="<?= $query['nama']; ?>">
                 </div>
                 <div class="w-[80%] mx-auto mt-4">
                     <label for="username" class="text-lg ">Username</label>
-                    <input type="text" name="username" class="w-full mt-2 h-9 rounded-md p-2" value="<?= $query['username']; ?>">
+                    <input type="text" name="username" class="w-full mt-2 h-9 rounded-md p-2" required value="<?= $query['username']; ?>">
                 </div>
                 <div class="w-[80%] mx-auto mt-4">
                     <label for="password" class="text-lg ">Password</label>
-                    <input type="password" name="password" class="w-full mt-2 h-9 rounded-md p-2" value="<?= $query['password']; ?>">
+                    <input type="password" name="password" class="w-full mt-2 h-9 rounded-md p-2" required value="<?= $query['password']; ?>">
                 </div>
                 <div class="w-[80%] mx-auto mt-4">
                     <label for="telp" class="text-lg ">Telepon</label>
-                    <input type="number" name="telp" class="w-full mt-2 h-9 rounded-md p-2" value="<?= $query['telp']; ?>">
+                    <input type="number" name="telp" class="w-full mt-2 h-9 rounded-md p-2" required value="<?= $query['telp']; ?>">
                 </div>
                 <div class="w-[80%] mx-auto mt-4">
                     <label for="email" class="text-lg ">Email</label>
-                    <input type="email" name="email" class="w-full mt-2 h-9 rounded-md p-2" value="<?= $query['email']; ?>">
+                    <input type="email" name="email" class="w-full mt-2 h-9 rounded-md p-2" required value="<?= $query['email']; ?>">
                 </div>
                 <div class="w-[80%] mx-auto mt-4">
                     <label for="address" class="text-lg ">Alamat</label>
-                    <input type="text" name="address" class="w-full mt-2 h-9 rounded-md p-2" value="<?= $query['address']; ?>">
+                    <input type="text" name="address" class="w-full mt-2 h-9 rounded-md p-2" required value="<?= $query['address']; ?>">
                 </div>
                 <div class="w-[80%] mx-auto mt-4">
                     <button name="simpan" class="py-2 px-4 bg-orange-500 hover:bg-orange-600 text-white rounded-md mb-11">Simpan</button>
+                    <a href="index.php" class="py-2 px-4 bg-red-600 hover:bg-red-700 text-white rounded-md mb-11 ml-2">Batal</a>
                 </div>
             </form>
 
