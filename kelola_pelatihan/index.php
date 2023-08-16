@@ -29,6 +29,7 @@ $query = query("SELECT * FROM pendaftaran_pelatihan");
                 <ul class="">
                     <li class="py-4 text-orange-300"><a href="../dashboard/index.php" class="pl-4">Dashboard</a></li>
                     <li class="py-4"><a href="index.php" class="pl-4">Kelola Pelatihan</a></li>
+                    <li class="py-4 text-orange-300"><a href="../kelola_artikel/index.php" class="pl-4">Kelola Artikel</a></li>
                     <li class="py-4 text-orange-300"><a href="../admin/index.php" class="pl-4">Admin</a></li>
                     <li class="py-4 mb-5 text-orange-300"><a href="../kelola_admin/index.php" class="pl-4">Kelola Admin</a></li>
                 </ul>

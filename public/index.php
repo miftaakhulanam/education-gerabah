@@ -22,6 +22,19 @@ if(isset($_POST['kirim'])){
         document.location.href = 'index.php'</script>";
     }
 }
+
+// artikel
+$query = query('SELECT * FROM artikel');
+
+// pagination
+$jumlahDataPerHalaman = 4;
+$jumlahData = count(query('SELECT * FROM artikel'));
+$jumlahHalaman = ceil($jumlahData / $jumlahDataPerHalaman);
+$halamanAktif = (isset($_GET['halaman'])) ? $_GET['halaman'] : 1;
+$awalData = ($jumlahDataPerHalaman * $halamanAktif) - $jumlahDataPerHalaman;
+
+$query = query("SELECT * FROM artikel LIMIT $awalData, $jumlahDataPerHalaman");
+
 ?>
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
@@ -35,11 +48,11 @@ if(isset($_POST['kirim'])){
   </head>
   <body>
     <!-- Navbar -->
-    <nav class="fixed top-0 w-full bg-white dark:bg-gray-900 border-b-2 border-gray-200">
-      <div class="max-w-screen-xl flex flex-wrap items-center justify-between p-4 mx-auto">
+    <nav class="fixed top-0 w-full bg-white border-b-2 border-slate-100 dark:bg-gray-900">
+      <div class=" flex flex-wrap items-center justify-between p-4 md:container">
         <a href="https://flowbite.com/" class="flex items-center">
           <img src="img/logo.png" class="h-8 mr-3" alt="Flowbite Logo" />
-          <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white text-orange-500">EDGE</span>
+          <!-- <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white text-orange-500">EDGE</span> -->
         </a>
         <button
           data-collapse-toggle="navbar-default"
@@ -54,39 +67,41 @@ if(isset($_POST['kirim'])){
           </svg>
         </button>
         <div class="hidden w-full md:block md:w-auto" id="navbar-default">
-          <ul class="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700 items-center">
+          <ul class="font-medium flex flex-col p-4 md:p-0 mt-10 border border-gray-100 rounded-lg md:flex-row md:space-x-8 md:mt-0 md:border-0 dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
             <li>
-              <a href="#home" class="block py-2 pl-3 pr-4 text-white bg-orange-500 rounded md:bg-transparent md:text-orange-500 md:p-0 dark:text-white md:dark:text-blue-500" aria-current="page">Home</a>
+              <a href="#home" class="block pl-3 pr-4 text-white bg-orange-500 rounded md:bg-transparent md:text-orange-500 md:p-0 dark:text-white md:dark:text-blue-500" aria-current="page">Home</a>
             </li>
             <li>
               <a
                 href="#profil"
-                class="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-orange-500 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+                class="block pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-orange-500 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
                 >Profil</a
               >
             </li>
             <li>
               <a
                 href="#artikel"
-                class="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-orange-500 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+                class="block pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-orange-500 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
                 >Artikel</a
               >
             </li>
             <li>
               <a
                 href="#pelatihan"
-                class="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-orange-500 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+                class="block pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-orange-500 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
                 >Pelatihan</a
               >
             </li>
             <li>
               <a
                 href="#kontak"
-                class="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-orange-500 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+                class="block pl-3 pr-4 mb-2 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-orange-500 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
                 >Kontak</a
               >
             </li>
-            <button type="button"><a href="../logout.php" class="text-white bg-orange-500 hover:bg-orange-600 font-medium rounded-lg text-sm px-5 py-2 dark:bg-orange-500 dark:hover:bg-orange-600">Logout</a></button>
+            <li>
+              <button type="button"><a href="../logout.php" class="text-white bg-orange-500 hover:bg-orange-600 font-medium rounded-lg text-sm px-5 py-2 dark:bg-orange-500 dark:hover:bg-orange-600">Logout</a></button>
+            </li>
           </ul>
         </div>
       </div>
@@ -94,20 +109,22 @@ if(isset($_POST['kirim'])){
     <!-- Tutup navbar -->
 
     <!-- Home -->
-    <section class="bg-center bg-no-repeat bg-cover pt-0 sm:pt-14" id="home" style="background-image: url('img/jumbotron.jpg')">
-      <div class="px-10 mx-0 md:px-20 max-w-screen-xl py-24 lg:py-48  bg-gradient-to-r from-orange-500">
-        <h1 class="mb-4 text-4xl font-semibold tracking-tight text-white md:text-5xl lg:text-6xl pb-5">Sentuhan kreativitasmu,<br />Ciptakan keajaiban dengan Gerabahmu!</h1>
-        <p class="mb-8 text-lg font-normal text-gray-100 lg:text-xl text-left">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellendus nesciunt voluptatibus labore commodi explicabo officia minus earum temporibus.</p>
-        <div class="flex flex-col space-y-4 sm:flex-row sm:justify-start sm:space-y-0 sm:space-x-4">
-          <a href="#pelatihan" class="inline-flex justify-center items-center py-3 px-5 text-base font-medium text-center text-orange-500 rounded-lg bg-white hover:bg-gray-200 focus:ring-4 focus:ring-orange-300">
-            Daftar Pelatihan
-            <svg aria-hidden="true" class="ml-2 -mr-1 w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-              <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path>
-            </svg>
-          </a>
-          <a href="#profil" class="inline-flex justify-center hover:text-gray-900 items-center py-3 px-5 text-base font-medium text-center text-white rounded-lg border border-white hover:bg-gray-100 focus:ring-4 focus:ring-gray-400">
-            Lihat selengkapnya
-          </a>
+    <section class="bg-center bg-no-repeat bg-cover" id="home" style="background-image: url('img/jumbotron.jpg')">
+      <div class="py-24 lg:py-56  bg-gradient-to-r from-orange-500 ">
+        <div class="md:container px-4">
+          <h1 class="mb-4 md:mt-10 text-4xl font-semibold tracking-tight text-white md:text-5xl lg:text-6xl pb-5">Sentuhan kreativitasmu,<br />Ciptakan keajaiban dengan Gerabahmu!</h1>
+          <p class="mb-8 text-lg font-normal text-gray-100 lg:text-xl text-left">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellendus nesciunt voluptatibus labore commodi explicabo officia minus earum temporibus.</p>
+          <div class="flex flex-col space-y-4 sm:flex-row sm:justify-start sm:space-y-0 sm:space-x-4">
+            <a href="#pelatihan" class="inline-flex justify-center items-center py-3 px-5 text-base font-medium text-center text-orange-500 rounded-lg bg-white hover:bg-gray-200 focus:ring-4 focus:ring-orange-300">
+              Daftar Pelatihan
+              <svg aria-hidden="true" class="ml-2 -mr-1 w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+              </svg>
+            </a>
+            <a href="#profil" class="inline-flex justify-center hover:text-gray-900 items-center py-3 px-5 text-base font-medium text-center text-white rounded-lg border border-white hover:bg-gray-100 focus:ring-4 focus:ring-gray-400">
+              Lihat selengkapnya
+            </a>
+          </div>
         </div>
       </div>
     </section>
@@ -116,7 +133,7 @@ if(isset($_POST['kirim'])){
     <!-- Profil -->
     <div class="py-0 sm:py-14 bg-white" id="profil">
       <h4 class="text-2xl sm:text-4xl font-bold dark:text-white text-center py-10 text-orange-500">Profil Kami</h4>
-      <div class="px-10 text-gray-600 md:px-12 xl:px-16">
+      <div class="px-4 md:container text-gray-600">
         <div class="space-y-6 md:space-y-0 md:flex gap-8 md:gap-12 lg:items-center lg:gap-16">
           <div class="md:5/12 lg:w-5/12 lg:px-10">
             <img src="img/profil.png" alt="image" loading="lazy" width="" height="" />
@@ -137,103 +154,90 @@ if(isset($_POST['kirim'])){
     <!-- Artikel -->
     <div class="py-0 sm:py-14" id="artikel">
       <h4 class="text-2xl sm:text-4xl font-bold dark:text-white text-center py-10 text-orange-500">Artikel</h4>
-      <div class="grid px-10 sm:px-20 items-center grid-flow-row gap-8 text-neutral-600 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-        <div class="bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-          <a href="#">
-            <img class="rounded-t-lg" src="img/artikel1.jpg" alt="" />
-          </a>
-          <div class="p-5">
-            <a href="#">
-              <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Noteworthy technology acquisitions 2021</h5>
-            </a>
-            <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Here are the biggest enterprise technology acquisitions of 2021 so far, in reverse chronological order.</p>
-            <a
-              href="#"
-              class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-orange-500 rounded-lg hover:bg-orange-600 focus:ring-4 focus:outline-none focus:ring-orange-300 dark:bg-orange-500 dark:hover:bg-orange-600 dark:focus:ring-orange-800"
-            >
-              Read more
-              <svg aria-hidden="true" class="w-4 h-4 ml-2 -mr-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path>
-              </svg>
-            </a>
-          </div>
-        </div>
-        <div class="bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-          <a href="#">
-            <img class="rounded-t-lg" src="img/artikel2.jpg" alt="" />
-          </a>
-          <div class="p-5">
-            <a href="#">
-              <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Noteworthy technology acquisitions 2021</h5>
-            </a>
-            <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Here are the biggest enterprise technology acquisitions of 2021 so far, in reverse chronological order.</p>
-            <a
-              href="#"
-              class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-orange-500 rounded-lg hover:bg-orange-600 focus:ring-4 focus:outline-none focus:ring-orange-300 dark:bg-orange-500 dark:hover:bg-orange-600 dark:focus:ring-orange-800"
-            >
-              Read more
-              <svg aria-hidden="true" class="w-4 h-4 ml-2 -mr-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path>
-              </svg>
-            </a>
-          </div>
-        </div>
-        <div class="bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-          <a href="#">
-            <img class="rounded-t-lg" src="img/artikel3.jpg" alt="" />
-          </a>
-          <div class="p-5">
-            <a href="#">
-              <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Noteworthy technology acquisitions 2021</h5>
-            </a>
-            <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Here are the biggest enterprise technology acquisitions of 2021 so far, in reverse chronological order.</p>
-            <a
-              href="#"
-              class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-orange-500 rounded-lg hover:bg-orange-600 focus:ring-4 focus:outline-none focus:ring-orange-300 dark:bg-orange-500 dark:hover:bg-orange-600 dark:focus:ring-orange-800"
-            >
-              Read more
-              <svg aria-hidden="true" class="w-4 h-4 ml-2 -mr-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path>
-              </svg>
-            </a>
-          </div>
-        </div>
-        <div class="bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-          <a href="#">
-            <img class="rounded-t-lg" src="img/artikel4.jpg" alt="" />
-          </a>
-          <div class="p-5">
-            <a href="#">
-              <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Noteworthy technology acquisitions 2021</h5>
-            </a>
-            <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Here are the biggest enterprise technology acquisitions of 2021 so far, in reverse chronological order.</p>
-            <a
-              href="#"
-              class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-orange-500 rounded-lg hover:bg-orange-600 focus:ring-4 focus:outline-none focus:ring-orange-300 dark:bg-orange-500 dark:hover:bg-orange-600 dark:focus:ring-orange-800"
-            >
-              Read more
-              <svg aria-hidden="true" class="w-4 h-4 ml-2 -mr-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path>
-              </svg>
-            </a>
-          </div>
+      <div id="artikel-card">
+        <div class="grid px-4 md:container items-center grid-flow-row gap-8 text-neutral-600 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+          <?php foreach($query as $data) : ?>
+            <div class="bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+              <a href="#">
+                <img class="rounded-t-lg" src="img/<?= $data['gambar_artikel']; ?>" alt="" />
+              </a>
+              <div class="p-5">
+                <a href="#">
+                  <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"><?= $data['judul_artikel']; ?></h5>
+                </a>
+                  <p class="mb-3 line-clamp-3 font-normal text-gray-700 dark:text-gray-400">
+                    <?= $data['isi_artikel']; ?>
+                  </p>
+                <a
+                  href="#"
+                  class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-orange-500 rounded-lg hover:bg-orange-600 focus:ring-4 focus:outline-none focus:ring-orange-300 dark:bg-orange-500 dark:hover:bg-orange-600 dark:focus:ring-orange-800"
+                >
+                  Read more
+                  <svg aria-hidden="true" class="w-4 h-4 ml-2 -mr-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                  </svg>
+                </a>
+              </div>
+            </div>
+          <?php endforeach; ?>
         </div>
       </div>
+
+      <nav aria-label="Page navigation example" class="flex mt-10 justify-center">
+        <ul class="flex items-center -space-x-px h-10 text-base ">
+          <?php if($halamanAktif > 1) : ?>
+            <li>
+              <a href="?halaman=<?= $halamanAktif - 1 ?>" class="flex items-center justify-center px-4 h-10 ml-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-l-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                <span class="sr-only">Previous</span>
+                <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 1 1 5l4 4"/>
+                </svg>
+              </a>
+            </li>   
+          <?php endif; ?>
+
+          <?php for($i = 1; $i <=$jumlahHalaman; $i++) : ?>
+            <?php if($i == $halamanAktif) : ?>
+              <li>
+                <a href="?halaman=<?= $i; ?>" aria-current="page" class="z-10 flex items-center justify-center px-4 h-10 leading-tight text-orange-500 border border-orange-300 bg-orange-50 hover:bg-orange-100 hover:text-orange-600 dark:border-gray-700 dark:bg-gray-700 dark:text-white"><?= $i; ?></a>
+              </li>
+            <?php else : ?>
+
+              <li>
+                <a href="?halaman=<?= $i; ?>" class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"><?= $i; ?></a>
+              </li>
+            <?php endif; ?>
+          <?php endfor; ?>
+
+          <?php if($halamanAktif < $jumlahHalaman) : ?>
+            <li>
+              <a href="?halaman=<?= $halamanAktif + 1 ?>" class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 rounded-r-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                <span class="sr-only">Next</span>
+                <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
+                </svg>
+              </a>
+            </li>
+          <?php endif; ?>
+
+        </ul>
+      </nav>
     </div>
     <!-- Tutup artikel -->
 
     <!-- Pelatihan -->
     <section class="bg-white dark:bg-gray-900 mb-3" id="pelatihan">
-      <div class="py-0 sm:py-8 lg:py-16 px-10 mx-auto max-w-screen-md">
+      <div class="py-0 sm:py-8 lg:py-16 px-4 md:container mx-auto max-w-screen-md">
         <h4 class="text-2xl sm:text-4xl font-bold dark:text-white text-center py-10 text-orange-500">Pelatihan</h4>
-        <form action="#" class="space-y-8" method="POST">
+        <form action="#" class="space-y-8 max-w-3xl mx-auto" method="POST" >
           <div>
             <label for="nama" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Nama</label>
             <input
               type="text"
               id="nama" name="nama"
-              class="block p-3 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 shadow-sm focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 dark:shadow-sm-light"
-              placeholder="Masukkan nama anda"
+              class="block p-3 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 shadow-sm focus:ring-orange-500 focus:border-orange-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500 dark:shadow-sm-light"
+              placeholder="Masukkan nama anda" 
+              autocomplete="off"
               required
             />
           </div>
@@ -242,8 +246,9 @@ if(isset($_POST['kirim'])){
             <input
               type="email"
               id="email" name="email"
-              class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 dark:shadow-sm-light"
-              placeholder="Masukkan email anda"
+              class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500 dark:shadow-sm-light"
+              placeholder="Masukkan email anda" 
+              autocomplete="off"
               required
             />
           </div>
@@ -251,7 +256,7 @@ if(isset($_POST['kirim'])){
             <label for="kategori" class="block mb-2">Kategori</label>
             <select
               id="kategori" name="kategori"
-              class="shadow-sm bg-gray-50 border border-gray-300 text-sm text-gray-900 rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 dark:shadow-sm-light"
+              class="shadow-sm bg-gray-50 border border-gray-300 text-sm text-gray-900 rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500 dark:shadow-sm-light"
               required>
               <option class="text-sm text-gray-500 dark:text-gray-300" value="Ekonomi">Ekonomi</option>
               <option class="text-sm text-gray-500 dark:text-gray-300" value="Menengah">Menengah</option>
@@ -263,7 +268,7 @@ if(isset($_POST['kirim'])){
             <input
               type="date"
               id="tanggal" name="tanggal"
-              class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 dark:shadow-sm-light"
+              class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-orange-500 focus:border-orange-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500 dark:shadow-sm-light"
               required
             />
           </div>
@@ -272,14 +277,14 @@ if(isset($_POST['kirim'])){
             <textarea
               id="message"
               rows="6" name="pesan"
-              class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg shadow-sm border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+              class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg shadow-sm border border-gray-300 focus:ring-orange-500 focus:border-orange-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500"
               placeholder="Masukkan pesan"
               required
             ></textarea>
           </div>
           <button
             type="submit" name="kirim"
-            class="py-3 px-5 text-sm font-medium text-center text-white rounded-lg bg-orange-500 hover:bg-orange-600 sm:w-fit hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+            class="py-3 px-5 text-sm font-medium text-center text-white rounded-lg bg-orange-500 hover:bg-orange-600 sm:w-fit focus:ring-4 focus:outline-none focus:ring-orange-300 dark:bg-orange-600 dark:hover:bg-orange-700 dark:focus:ring-orange-800"
           >
             Kirim pesan
           </button>
@@ -290,7 +295,7 @@ if(isset($_POST['kirim'])){
 
     <!-- Footer -->
     <footer class="bg-slate-800 dark:bg-gray-900" id="kontak">
-      <div class="mx-auto w-full max-w-screen-xl px-10 py-6 lg:py-8">
+      <div class="mx-auto w-full max-w-screen-xl px-4 md:container py-6 lg:py-8">
         <div class="md:flex md:justify-between">
           <div class="mb-6 md:mb-0">
             <a href="index.php" class="flex items-center">
@@ -339,7 +344,7 @@ if(isset($_POST['kirim'])){
         </div>
         <hr class="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />
         <div class="sm:flex sm:items-center sm:justify-between">
-          <span class="text-sm sm:text-center text-white">© 2023 <a href="#" class="hover:underline">EDUCATION GERABAH</a>. All Rights Reserved. </span>
+          <span class="sm:flex sm:items-center text-sm sm:text-center text-white">© 2023 <a href="#" class="hover:underline">EDUCATION GERABAH</a>. All Rights Reserved. </span>
           <div class="flex mt-4 space-x-6 justify-center sm:justify-center sm:mt-0">
           <a href="https://instagram.com/education.gerabah?igshid=MzNlNGNkZWQ4Mg==" class="text-white hover:text-orange-500 dark:hover:text-white">
               <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -395,5 +400,7 @@ if(isset($_POST['kirim'])){
       </div>
     </footer>
     <!-- Tutup footer -->
+    <script src="https://unpkg.com/flowbite@1.4.4/dist/flowbite.js"></script>
+    <script src="js/script.js"></script>
   </body>
 </html>

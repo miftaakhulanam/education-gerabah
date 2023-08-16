@@ -6,6 +6,7 @@
     "dev": "npx tailwindcss -i ./src/input.css -o ./public/css/style.css --watch"
   },
   "dependencies": {
+    "@tailwindcss/line-clamp": "^0.4.4",
     "flowbite": "^1.6.5"
   }
 }

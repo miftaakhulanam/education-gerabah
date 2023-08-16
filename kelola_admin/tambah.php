@@ -43,6 +43,7 @@ if(isset($_POST['simpan'])){
                 <ul class="">
                     <li class="py-4 text-orange-300"><a href="../dashboard/index.php" class="pl-4">Dashboard</a></li>
                     <li class="py-4 text-orange-300"><a href="../kelola_pelatihan/index.php" class="pl-4">Kelola Pelatihan</a></li>
+                    <li class="py-4 text-orange-300"><a href="../kelola_artikel/index.php" class="pl-4">Kelola Artikel</a></li>
                     <li class="py-4 text-orange-300"><a href="../admin/index.php" class="pl-4">Admin</a></li>
                     <li class="py-4 mb-5"><a href="index.php" class="pl-4">Kelola Admin</a></li>
                 </ul>
@@ -88,6 +89,7 @@ if(isset($_POST['simpan'])){
                 </div>
                 <div class="w-[80%] mx-auto mt-4">
                     <button name="simpan" class="py-2 px-4 bg-orange-500 hover:bg-orange-600 text-white rounded-md mb-11">Simpan</button>
+                    <a href="index.php" class="py-2 px-4 bg-red-600 hover:bg-red-700 text-white rounded-md mb-11 ml-2">Batal</a>
                 </div>
             </form>
         </div>
